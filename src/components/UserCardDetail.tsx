@@ -5,7 +5,7 @@ interface UserCardDetailProps {
   address: string;
 }
 
-export const UserCardDetail = ({ email, address }) => {
+export const UserCardDetail = ({ email, address } : UserCardDetailProps) => {
   return (
     <div className="text-center">
       <p>
