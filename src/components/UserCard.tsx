@@ -14,8 +14,11 @@ export const UserCard = ({ name, imgUrl, address, email }) => {
         <img src={imgUrl} width="90px" className="rounded-circle me-4"></img>
         <span className="text-center display-6 me-auto">{name}</span>
         {isDetailShown ? <BsChevronUp /> : <BsChevronDown />}
-      </div>
+     </div>
       {/* display UserCardDetail accordingly */}
+       {isDetailShown && 
+        <UserCardDetail email={email} address={address} />
+      }
     </div>
   );
 };
