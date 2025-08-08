@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { UserCardDetail } from "./UserCardDetail";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
+
+interface UserCardProps {
+  name: string;
+  imgUrl: string;
+  address: string;
+  email: string;
+}
+
 export const UserCard = ({ name, imgUrl, address, email }) => {
   const [isDetailShown, setIsDetailShown] = useState(false);
 
