@@ -9,7 +9,8 @@ interface UserCardProps {
   email: string;
 }
 
-export const UserCard = ({ name, imgUrl, address, email }) => {
+export const UserCard = ({ 
+  name, imgUrl, address, email }: UserCardProps) => {
   const [isDetailShown, setIsDetailShown] = useState(false);
 
   const userCardOnClick = () => {
