@@ -1,19 +1,42 @@
 import { UserCard } from "../components/UserCard";
 import { cleanUser } from "../libs/CleanUser";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export default function RandomUserPage() {
   const [users, setUsers] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [genAmount, setGenAmount] = useState(1);
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      setIsFirstLoad(false);
+      return; 
+    }
+    const strGenAmount = JSON.stringify(genAmount);
+    localStorage.setItem("genAmount", strGenAmount);
+  }, [genAmount, isFirstLoad]);
+
+
+  useEffect(() => {
+    const strGenAmount = localStorage.getItem("genAmount");
+    if (strGenAmount !== null) {
+      const loadedAmount = JSON.parse(strGenAmount);
+      setGenAmount(loadedAmount);
+    }
+  }, []);
 
   const generateBtnOnClick = async () => {
     setIsLoading(true);
+    
     const resp = await axios.get(
       `https://randomuser.me/api/?results=${genAmount}`
     );
     setIsLoading(false);
     const users = resp.data.results;
+
+    const cleanedUsers = users.map(cleanUser);
+    setUsers(cleanedUsers);
     //Your code here
     //Process result from api response with map function. Tips use function from /src/libs/CleanUser
     //Then update state with function : setUsers(...)
@@ -35,10 +58,18 @@ export default function RandomUserPage() {
           Generate
         </button>
       </div>
-      {isLoading && (
+     {isLoading && (
         <p className="display-6 text-center fst-italic my-4">Loading ...</p>
       )}
-      {users && !isLoading && users.map(/*code map rendering UserCard here */)}
+      {Array.isArray(users) && !isLoading && users.map((user : any ) => (
+        <UserCard
+          key={user.email}
+          name={user.name}
+          imgUrl={user.imgUrl}
+          address={user.address}
+          email={user.email}
+        />
+      ))}
     </div>
   );
 }
