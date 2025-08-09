@@ -42,6 +42,7 @@ export default function RandomUserPage() {
     //Then update state with function : setUsers(...)
   };
 
+  
   return (
     <div style={{ maxWidth: "700px" }} className="mx-auto">
       <p className="display-4 text-center fst-italic m-4">Users Generator</p>

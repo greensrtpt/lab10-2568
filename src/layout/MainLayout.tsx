@@ -19,6 +19,7 @@ export default function MainLayout() {
             <Outlet /> {/* ตรงนี้จะแสดงเนื้อหาของ route's children */}
           </main>
 
+
           {/* Footer ด้านล่าง */}
           <Footer year="2025" fullName="Sireethorn" studentId="670610741" />
         </div>
